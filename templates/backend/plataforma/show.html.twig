@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<title>Plataforma</title>
+
+{% block body %}
+    <h1>Plataforma</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ plataforma.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ plataforma.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('plataforma_index') }}">back to list</a>
+
+    <a href="{{ path('plataforma_edit', {'id': plataforma.id}) }}">edit</a>
+
+    {{ include('plataforma/_delete_form.html.twig') }}
+{% endblock %}

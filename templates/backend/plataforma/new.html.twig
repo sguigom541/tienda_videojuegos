@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Plataforma</title>
+
+{% block body %}
+    <h1>Create new Plataforma</h1>
+
+    {{ include('plataforma/_form.html.twig') }}
+
+    <a href="{{ path('plataforma_index') }}">back to list</a>
+{% endblock %}
