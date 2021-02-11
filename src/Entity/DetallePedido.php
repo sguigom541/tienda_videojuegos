@@ -17,8 +17,95 @@ class DetallePedido
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $cantidadCompra;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $total;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $precioVideojuego;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Pedido::class, inversedBy="detallePedidos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $pedido;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Videojuego::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $videojuego;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCantidadCompra(): ?int
+    {
+        return $this->cantidadCompra;
+    }
+
+    public function setCantidadCompra(int $cantidadCompra): self
+    {
+        $this->cantidadCompra = $cantidadCompra;
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(float $total): self
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getPrecioVideojuego(): ?float
+    {
+        return $this->precioVideojuego;
+    }
+
+    public function setPrecioVideojuego(float $precioVideojuego): self
+    {
+        $this->precioVideojuego = $precioVideojuego;
+
+        return $this;
+    }
+
+    public function getPedido(): ?Pedido
+    {
+        return $this->pedido;
+    }
+
+    public function setPedido(?Pedido $pedido): self
+    {
+        $this->pedido = $pedido;
+
+        return $this;
+    }
+
+    public function getVideojuego(): ?Videojuego
+    {
+        return $this->videojuego;
+    }
+
+    public function setVideojuego(?Videojuego $videojuego): self
+    {
+        $this->videojuego = $videojuego;
+
+        return $this;
     }
 }

@@ -1,11 +1,17 @@
-<!DOCTYPE html>
+{% extends 'backend/base.html.twig' %}
 
-<title>New Categoria</title>
+{% block title %}Nueva categoría{% endblock %}
 
 {% block body %}
-    <h1>Create new Categoria</h1>
+    <h1 class="display-6 mt-4">Nueva categoría</h1>
+    <div class="card mb-3">
+        <div class="card-body">
+            {{ include('backend/categoria/_form.html.twig') }}
+        </div>
+        <a href="{{ path('app_categoria_index') }}" class="pl-2 text-secondary float-left mr-5">
+            <i class="fas fa-caret-square-left"></i>Volver a lista</a>
+    </div>
 
-    {{ include('categoria/_form.html.twig') }}
 
-    <a href="{{ path('categoria_index') }}">back to list</a>
+
 {% endblock %}

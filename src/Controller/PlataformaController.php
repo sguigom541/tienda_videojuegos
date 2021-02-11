@@ -11,22 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/plataforma")
+ * @Route("/admin/plataforma")
  */
 class PlataformaController extends AbstractController
 {
     /**
-     * @Route("/", name="plataforma_index", methods={"GET"})
+     * @Route("/", name="app_plataforma_index", methods={"GET"})
      */
     public function index(PlataformaRepository $plataformaRepository): Response
     {
-        return $this->render('plataforma/index.html.twig', [
+        return $this->render('backend/plataforma/index.html.twig', [
             'plataformas' => $plataformaRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="plataforma_new", methods={"GET","POST"})
+     * @Route("/new", name="app_plataforma_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -39,27 +39,27 @@ class PlataformaController extends AbstractController
             $entityManager->persist($plataforma);
             $entityManager->flush();
 
-            return $this->redirectToRoute('plataforma_index');
+            return $this->redirectToRoute('app_plataforma_index');
         }
 
-        return $this->render('plataforma/new.html.twig', [
+        return $this->render('backend/plataforma/new.html.twig', [
             'plataforma' => $plataforma,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="plataforma_show", methods={"GET"})
+     * @Route("/{id}", name="app_plataforma_show", methods={"GET"})
      */
     public function show(Plataforma $plataforma): Response
     {
-        return $this->render('plataforma/show.html.twig', [
+        return $this->render('backend/plataforma/show.html.twig', [
             'plataforma' => $plataforma,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="plataforma_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="app_plataforma_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Plataforma $plataforma): Response
     {
@@ -69,17 +69,17 @@ class PlataformaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('plataforma_index');
+            return $this->redirectToRoute('app_plataforma_index');
         }
 
-        return $this->render('plataforma/edit.html.twig', [
+        return $this->render('backend/plataforma/edit.html.twig', [
             'plataforma' => $plataforma,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="plataforma_delete", methods={"DELETE"})
+     * @Route("/{id}", name="app_plataforma_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Plataforma $plataforma): Response
     {
@@ -89,6 +89,6 @@ class PlataformaController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('plataforma_index');
+        return $this->redirectToRoute('app_plataforma_index');
     }
 }

@@ -1,17 +1,18 @@
-<!DOCTYPE html>
+{% extends 'backend/base.html.twig' %}
 
-<title>Plataforma index</title>
+{% block title %}Listado de plataformas
+{% endblock %}
 
 {% block body %}
     <h1>Plataforma index</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for plataforma in plataformas %}
@@ -19,8 +20,8 @@
                 <td>{{ plataforma.id }}</td>
                 <td>{{ plataforma.nombre }}</td>
                 <td>
-                    <a href="{{ path('plataforma_show', {'id': plataforma.id}) }}">show</a>
-                    <a href="{{ path('plataforma_edit', {'id': plataforma.id}) }}">edit</a>
+                    <a href="{{ path('app_plataforma_show', {'id': plataforma.id}) }}">show</a>
+                    <a href="{{ path('app_plataforma_edit', {'id': plataforma.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +32,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('plataforma_new') }}">Create new</a>
+    <a href="{{ path('app_plataforma_new') }}">Create new</a>
 {% endblock %}

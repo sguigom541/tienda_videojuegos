@@ -1,26 +1,26 @@
-<!DOCTYPE html>
+{% extends 'backend/base.html.twig' %}
 
-<title>Categoria</title>
+{% block title %}Categoría: {{ categorium.nombre }}{% endblock %}
 
 {% block body %}
-    <h1>Categoria</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ categorium.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ categorium.nombre }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('categoria_index') }}">back to list</a>
-
-    <a href="{{ path('categoria_edit', {'id': categorium.id}) }}">edit</a>
-
-    {{ include('categoria/_delete_form.html.twig') }}
+    <div class="card mt-2 mb-2">
+        <div class="card-header">
+            <h1>Información de la categoría</h1>
+        </div>
+        <div class="card-body">
+            <div class="table table-bordered table-responsive">
+                <ul class="list-group-horizontal">
+                    <li class="list-group-item"><i>Id categoría: </i>{{ categorium.id }}</li>
+                    <li class="list-group-item"><i>Nombre Categoría: </i>{{ categorium.nombre }}</li>
+                </ul>
+            </div>
+            <a href="{{ path('app_categoria_index') }}" class="pl-2 text-info float-left mr-5">
+                <i class="fas fa-caret-square-left"></i> Volver a lista</a>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-secondary float-left mr-2"
+               href="{{ path('app_categoria_edit', {'id': categorium.id}) }}"> Editar </a>
+            {{ include('backend/categoria/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

@@ -1,35 +1,58 @@
-<!DOCTYPE html>
-
-<title>Categoria index</title>
+{% extends 'backend/base.html.twig' %}
+{% block title %}Listado de categorías
+{% endblock %}
 
 {% block body %}
-    <h1>Categoria index</h1>
+    <div class="card mt-4 mb-4">
+        <div class="card-header">
+            <h2 class="display-6">Listado de Categorías</h2>
+        </div>
+        <div class="card-body">
+            <div class="table">
+                <table class="table-responsive table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for categorium in categorias %}
+                        <tr>
+                            <td>{{ categorium.id }}</td>
+                            <td>{{ categorium.nombre }}</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm"
+                                   data-toggle="tooltip" data-placement="top" title="más información"
+                                   href="{{ path('app_categoria_show', {'id': categorium.id}) }}"
+                                   aria-label="moreInfo">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a class="btn btn-outline-warning btn-sm"
+                                   data-toggle="tooltip" data-placement="top" title="Editar"
+                                   href="{{ path('app_categoria_edit', {'id': categorium.id}) }}"
+                                   aria-label="Edit">
+                                    <i class="fas fa-pen-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a href="{{ path('app_categoria_new') }}" class="btn btn-dark text-capitalize text-white">Nueva
+                    Categoría</a>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorium in categorias %}
-            <tr>
-                <td>{{ categorium.id }}</td>
-                <td>{{ categorium.nombre }}</td>
-                <td>
-                    <a href="{{ path('categoria_show', {'id': categorium.id}) }}">show</a>
-                    <a href="{{ path('categoria_edit', {'id': categorium.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('categoria_new') }}">Create new</a>
+
+
 {% endblock %}
