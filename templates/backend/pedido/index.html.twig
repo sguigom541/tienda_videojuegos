@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<title>Pedido index</title>
+
+{% block body %}
+    <h1>Pedido index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FechaPedido</th>
+                <th>TotalCompra</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.fechaPedido ? pedido.fechaPedido|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ pedido.totalCompra }}</td>
+                <td>
+                    <a href="{{ path('pedido_show', {'id': pedido.id}) }}">show</a>
+                    <a href="{{ path('pedido_edit', {'id': pedido.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('pedido_new') }}">Create new</a>
+{% endblock %}

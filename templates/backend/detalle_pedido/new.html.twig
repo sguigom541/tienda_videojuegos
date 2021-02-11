@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New DetallePedido</title>
+
+{% block body %}
+    <h1>Create new DetallePedido</h1>
+
+    {{ include('detalle_pedido/_form.html.twig') }}
+
+    <a href="{{ path('detalle_pedido_index') }}">back to list</a>
+{% endblock %}

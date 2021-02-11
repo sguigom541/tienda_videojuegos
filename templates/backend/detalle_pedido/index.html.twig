@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<title>DetallePedido index</title>
+
+{% block body %}
+    <h1>DetallePedido index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CantidadCompra</th>
+                <th>Total</th>
+                <th>PrecioVideojuego</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for detalle_pedido in detalle_pedidos %}
+            <tr>
+                <td>{{ detalle_pedido.id }}</td>
+                <td>{{ detalle_pedido.cantidadCompra }}</td>
+                <td>{{ detalle_pedido.total }}</td>
+                <td>{{ detalle_pedido.precioVideojuego }}</td>
+                <td>
+                    <a href="{{ path('detalle_pedido_show', {'id': detalle_pedido.id}) }}">show</a>
+                    <a href="{{ path('detalle_pedido_edit', {'id': detalle_pedido.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('detalle_pedido_new') }}">Create new</a>
+{% endblock %}
