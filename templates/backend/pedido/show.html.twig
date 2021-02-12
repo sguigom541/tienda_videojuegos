@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-
-<title>Pedido</title>
+{% extends 'backend/base.html.twig' %}
+{% block title %}Pedido {{ pedido.id }}
+{% endblock %}
 
 {% block body %}
     <h1>Pedido</h1>
@@ -22,9 +22,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('pedido_index') }}">back to list</a>
+    <a href="{{ path('app_pedido_index') }}">back to list</a>
 
-    <a href="{{ path('pedido_edit', {'id': pedido.id}) }}">edit</a>
+    <a href="{{ path('app_pedido_edit', {'id': pedido.id}) }}">edit</a>
 
-    {{ include('pedido/_delete_form.html.twig') }}
+    {{ include('backend/pedido/_delete_form.html.twig') }}
 {% endblock %}

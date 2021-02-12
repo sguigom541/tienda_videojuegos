@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-
-<title>Pedido index</title>
+{% extends 'backend/base.html.twig' %}
+{% block title %}Listado de pedidos
+{% endblock %}
 
 {% block body %}
     <h1>Pedido index</h1>
@@ -21,8 +21,8 @@
                 <td>{{ pedido.fechaPedido ? pedido.fechaPedido|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ pedido.totalCompra }}</td>
                 <td>
-                    <a href="{{ path('pedido_show', {'id': pedido.id}) }}">show</a>
-                    <a href="{{ path('pedido_edit', {'id': pedido.id}) }}">edit</a>
+                    <a href="{{ path('app_pedido_show', {'id': pedido.id}) }}">show</a>
+                    <a href="{{ path('app_pedido_edit', {'id': pedido.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('pedido_new') }}">Create new</a>
+    <a href="{{ path('app_pedido_new') }}">Create new</a>
 {% endblock %}

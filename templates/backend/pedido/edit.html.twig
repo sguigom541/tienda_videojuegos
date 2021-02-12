@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-
-<title>Edit Pedido</title>
+{% extends 'backend/base.html.twig' %}
+{% block title %}Edición del pedido {{ pedido.id }}
+{% endblock %}
 
 {% block body %}
     <h1>Edit Pedido</h1>
 
-    {{ include('pedido/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('backend/pedido/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('pedido_index') }}">back to list</a>
+    <a href="{{ path('app_pedido_index') }}">back to list</a>
 
-    {{ include('pedido/_delete_form.html.twig') }}
+    {{ include('app_pedido/_delete_form.html.twig') }}
 {% endblock %}

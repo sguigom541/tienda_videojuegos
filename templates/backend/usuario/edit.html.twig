@@ -1,0 +1,13 @@
+{% extends 'backend/base.html.twig' %}
+{% block title %}Edición del usuario {{ usuario.id }}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Usuario</h1>
+
+    {{ include('backend/usuario/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_usuario_index') }}">back to list</a>
+
+    {{ include('backend/usuario/_delete_form.html.twig') }}
+{% endblock %}
