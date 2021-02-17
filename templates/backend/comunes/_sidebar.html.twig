@@ -2,7 +2,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark color-sidebar" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <a class="nav-link mt-3" href="#">
+                <a class="nav-link mt-3" href="{{ path('app_index_backend') }}">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt"></i>
                     </div>
@@ -20,11 +20,11 @@
                 </a>
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link" href="{{ path('app_usuario_index') }}">Admin Usuarios</a>
-                        <a class="nav-link" href="{{ path('app_categoria_index') }}">Categoría</a>
-                        <a class="nav-link" href="{{ path('app_plataforma_index') }}">Plataforma</a>
-                        <a class="nav-link" href="#">Videojuego</a>
-                        <a class="nav-link" href="{{ path('app_pedido_index') }}">Pedidos</a>
+                        <a class="nav-link" href="{{ path('app_usuario_index') }}"><i class="fas fa-users"></i>&nbsp; Admin Usuarios</a>
+                        <a class="nav-link" href="{{ path('app_categoria_index') }}"><i class="fa fa-list-alt"></i>&nbsp;Categoría</a>
+                        <a class="nav-link" href="{{ path('app_plataforma_index') }}"><i class="fab fa-playstation"></i>&nbsp;Plataforma</a>
+                        <a class="nav-link" href="{{ path('app_videojuego_index') }}"><i class="fas fa-gamepad"></i>&nbsp;Videojuego</a>
+                        <a class="nav-link" href="{{ path('app_pedido_index') }}"><i class="fas fa-box-open"></i>&nbsp;Pedidos</a>
                     </nav>
                 </div>
             </div>

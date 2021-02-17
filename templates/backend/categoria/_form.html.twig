@@ -1,13 +1,14 @@
-{{ form_start(form) }}
+{{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
 <div class="form-group row">
     {{ form_label(form.nombre, 'Nombre', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
     <div class="col-sm-8">
         {{ form_widget(form.nombre, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_errors(form.nombre, {'attr': {'class':'bg-danger'}}) }}
     </div>
 </div>
 
-<button class="btn btn-success ">{{ button_label|default('Crear') }}</button>
 
 
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
 
