@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\VideojuegoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VideojuegoRepository::class)
@@ -63,6 +64,17 @@ class Videojuego
      * @ORM\JoinColumn(nullable=false)
      */
     private $categoria;
+
+    /**
+     * @ORM\Column(type="text")
+     * @Assert\Image()
+     */
+    private $imgPrincipal;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $imagenes = [];
 
     public function getId(): ?int
     {
@@ -173,6 +185,30 @@ class Videojuego
     public function setCategoria(?Categoria $categoria): self
     {
         $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    public function getImgPrincipal(): ?string
+    {
+        return $this->imgPrincipal;
+    }
+
+    public function setImgPrincipal(string $imgPrincipal): self
+    {
+        $this->imgPrincipal = $imgPrincipal;
+
+        return $this;
+    }
+
+    public function getImagenes(): ?array
+    {
+        return $this->imagenes;
+    }
+
+    public function setImagenes(?array $imagenes): self
+    {
+        $this->imagenes = $imagenes;
 
         return $this;
     }

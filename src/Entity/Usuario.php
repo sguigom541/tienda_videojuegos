@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
@@ -22,6 +23,8 @@ class Usuario implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="El campo email no puede estar vacío")
+     * @Assert\Email(message="El campo email debe de ser válido")
      */
     private $email;
 
@@ -33,6 +36,7 @@ class Usuario implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="El campo contraseña no puede estar vacío")
      */
     private $password;
 
@@ -43,21 +47,25 @@ class Usuario implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank(message="El campo nombre no puede estar vacío")
      */
     private $nombre;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="El campo apellido 1 no puede estar vacío")
      */
     private $ape1;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="El campo apellido 2 no puede estar vacío")
      */
     private $ape2;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="El campo dirección no puede estar vacío")
      */
     private $direccion;
 
