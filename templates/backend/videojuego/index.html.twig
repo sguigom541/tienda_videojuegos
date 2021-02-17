@@ -1,0 +1,50 @@
+{% extends 'backend/base.html.twig' %}
+{% block title %}Listado de Videojuegos
+{% endblock %}
+{% block body %}
+    <h1>Videojuego index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Lanzamiento</th>
+                <th>FechaHoraEntrada</th>
+                <th>Precio</th>
+                <th>Descuento</th>
+                <th>Stock</th>
+                <th>Descripcion</th>
+                <th>ImgPrincipal</th>
+                <th>Imagenes</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for videojuego in videojuegos %}
+            <tr>
+                <td>{{ videojuego.id }}</td>
+                <td>{{ videojuego.nombre }}</td>
+                <td>{{ videojuego.lanzamiento ? videojuego.lanzamiento|date('Y-m-d') : '' }}</td>
+                <td>{{ videojuego.fechaHoraEntrada ? videojuego.fechaHoraEntrada|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ videojuego.precio }}</td>
+                <td>{{ videojuego.descuento }}</td>
+                <td>{{ videojuego.stock }}</td>
+                <td>{{ videojuego.descripcion }}</td>
+                <td>{{ videojuego.imgPrincipal }}</td>
+                <td>{{ videojuego.imagenes ? videojuego.imagenes|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_videojuego_show', {'id': videojuego.id}) }}">show</a>
+                    <a href="{{ path('app_videojuego_edit', {'id': videojuego.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_videojuego_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<title>Videojuego</title>
+
+{% block body %}
+    <h1>Videojuego</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ videojuego.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ videojuego.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Lanzamiento</th>
+                <td>{{ videojuego.lanzamiento ? videojuego.lanzamiento|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>FechaHoraEntrada</th>
+                <td>{{ videojuego.fechaHoraEntrada ? videojuego.fechaHoraEntrada|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ videojuego.precio }}</td>
+            </tr>
+            <tr>
+                <th>Descuento</th>
+                <td>{{ videojuego.descuento }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ videojuego.stock }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ videojuego.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>ImgPrincipal</th>
+                <td>{{ videojuego.imgPrincipal }}</td>
+            </tr>
+            <tr>
+                <th>Imagenes</th>
+                <td>{{ videojuego.imagenes ? videojuego.imagenes|join(', ') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('videojuego_index') }}">back to list</a>
+
+    <a href="{{ path('videojuego_edit', {'id': videojuego.id}) }}">edit</a>
+
+    {{ include('videojuego/_delete_form.html.twig') }}
+{% endblock %}

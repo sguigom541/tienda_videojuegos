@@ -1,0 +1,58 @@
+{{ form_start(form) }}
+<div class="form-group row">
+    {{ form_label(form.nombre, 'Nombre', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+
+<div class="form-group row">
+    {{ form_label(form.lanzamiento, 'Lanzamiento', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.lanzamiento, {'attr': {'class': 'datepicker'}}) }}
+    </div>
+</div>
+<div class="form-group row">
+    {{ form_label(form.fechaHoraEntrada,'Fecha Entrada', {'label_attr': {'class': 'col-sm-3'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.fechaHoraEntrada, {'attr': {'class': 'datetimepicker'}}) }}
+    </div>
+</div>
+<div class="form-group row">
+    {{ form_label(form.precio,'Precio', {'label_attr': {'class': 'col-sm-3'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.precio, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="form-group row">
+    {{ form_label(form.descuento,'Descuento', {'label_attr': {'class': 'col-sm-3'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.descuento, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="form-group row">
+    {{ form_label(form.stock,'Stock', {'label_attr': {'class': 'col-sm-3'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.stock, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="form-group row">
+    {{ form_label(form.descripcion,'Descripción', {'label_attr': {'class': 'col-sm-3'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.descripcion, {'attr': {'class': 'form-control','rows':'3'}}) }}
+    </div>
+</div>
+<div class="form-group row">
+    {{ form_label(form.categoria,'Categoría', {'label_attr': {'class': 'col-sm-3'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.categoria,{'attr':{'class':'custom-select'}}) }}
+    </div>
+</div>
+<div class="form-group row">
+    {{ form_label(form.plataforma,'Plataforma', {'label_attr': {'class': 'col-sm-3'}}) }}
+    <div class="col-sm-8">
+        {{ form_widget(form.plataforma,{'attr':{'class':'custom-select'}}) }}
+    </div>
+</div>
+<button class="btn btn-success ">{{ button_label|default('Crear') }}</button>
+{{ form_end(form) }}

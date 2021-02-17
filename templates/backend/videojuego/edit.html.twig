@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Videojuego</title>
+
+{% block body %}
+    <h1>Edit Videojuego</h1>
+
+    {{ include('videojuego/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('videojuego_index') }}">back to list</a>
+
+    {{ include('videojuego/_delete_form.html.twig') }}
+{% endblock %}
