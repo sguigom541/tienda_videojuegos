@@ -19,11 +19,13 @@ class Videojuego
     private $id;
 
     /**
+     * @Assert\NotBlank(message="El campo nombre no puede estar vacío")
      * @ORM\Column(type="string", length=45)
      */
     private $nombre;
 
     /**
+     * @Assert\NotBlank(message="El campo lanzamiento no puede estar vacío")
      * @ORM\Column(type="date")
      */
     private $lanzamiento;
@@ -34,32 +36,43 @@ class Videojuego
     private $fechaHoraEntrada;
 
     /**
+     * @Assert\NotBlank(message="El campo precio no puede estar vacío")
+     * @Assert\Positive(message="El campo precio debe de ser mayor a 0")
+     * @Assert\Type(type="float",message="El campo precio debe de ser numérico o decimal")
      * @ORM\Column(type="float")
      */
     private $precio;
 
     /**
+     * @Assert\NotBlank(message="El campo descuento no puede estar vacío")
+     * @Assert\PositiveOrZero(message="El campo descuento debe ser mayor o igual a 0")
+     * @Assert\Type(type="float", message="Campo Precio numerico o decimal")
      * @ORM\Column(type="float", nullable=true)
      */
     private $descuento;
 
     /**
+     * @Assert\NotBlank(message="El campo stock no puede estar vacío")
+     * @Assert\PositiveOrZero(message="El campo stock debe ser mayor o igual a 0")
      * @ORM\Column(type="integer")
      */
     private $stock;
 
     /**
+     * @Assert\NotBlank(message="El campo descripción no puede estar vacío")
      * @ORM\Column(type="text")
      */
     private $descripcion;
 
     /**
+     * @Assert\NotBlank(message="Campo plataforma no seleccionado")
      * @ORM\ManyToOne(targetEntity=Plataforma::class, inversedBy="videojuegos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $plataforma;
 
     /**
+     * @Assert\NotBlank(message="Campo categoría no seleccionado")
      * @ORM\ManyToOne(targetEntity=Categoria::class, inversedBy="videojuegos")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -67,7 +80,6 @@ class Videojuego
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Image()
      */
     private $imgPrincipal;
 

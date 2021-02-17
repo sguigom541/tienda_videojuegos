@@ -1,26 +1,27 @@
-<!DOCTYPE html>
+{% extends 'backend/base.html.twig' %}
 
-<title>Plataforma</title>
+{% block title %}Plataforma{% endblock %}
 
 {% block body %}
-    <h1>Plataforma</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ plataforma.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ plataforma.nombre }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('plataforma_index') }}">back to list</a>
-
-    <a href="{{ path('plataforma_edit', {'id': plataforma.id}) }}">edit</a>
-
-    {{ include('plataforma/_delete_form.html.twig') }}
+    <div class="card mt-4 mb-4">
+        <div class="card-header">
+            <h1 class="display-6">Informacion sobre la plataforma</h1>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Id:</b>{{ plataforma.id }}</li>
+                    <li class="list-group-item"><b>Nombre:</b>{{ plataforma.nombre }}</li>
+                </ul>
+            </div>
+            <a href="{{ path('app_plataforma_index') }}" class="text-primary">
+                <i class="fas fa-caret-square-left"></i> Volver a lista</a>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-secondary float-left mr-2"
+               href="{{ path('app_plataforma_edit', {'id': plataforma.id}) }}"> Editar </a>
+            {{ include('backend/plataforma/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

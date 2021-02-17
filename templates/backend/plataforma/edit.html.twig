@@ -1,13 +1,17 @@
 {% extends 'backend/base.html.twig' %}
 
-{% block title %}Nueva categoría{% endblock %}
+{% block title %}Editando plataforma{% endblock %}
 
 {% block body %}
-    <h1>Edit Plataforma</h1>
-
-    {{ include('plataforma/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_plataforma_index') }}">back to list</a>
-
-    {{ include('backend/plataforma/_delete_form.html.twig') }}
+    <h1 class="display-6 mt-4">Edicion de categoría</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            {{ include('backend/plataforma/_form.html.twig', {'button_label': 'Actualizar'}) }}
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('app_plataforma_index') }}" class="text-primary d-block mb-2">
+                <i class="fas fa-caret-square-left"></i> Volver a lista</a>
+            {{ include('backend/plataforma/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

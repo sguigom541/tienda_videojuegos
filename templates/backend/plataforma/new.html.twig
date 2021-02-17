@@ -3,9 +3,14 @@
 {% block title %}Nueva plataforma{% endblock %}
 
 {% block body %}
-    <h1>Create new Plataforma</h1>
+    <h1 class="display-6 mt-4">Nueva plataforma</h1>
 
-    {{ include('backend/plataforma/_form.html.twig') }}
+    <div class="card mb-4">
+        <div class="card-body">
+            {{ include('backend/plataforma/_form.html.twig') }}
+        </div>
+    </div>
 
-    <a href="{{ path('app_plataforma_index') }}">back to list</a>
+
+    <a href="{{ path('app_plataforma_index') }}" class="pl-2 text-primary float-left mr-2"> <i class="fas fa-caret-square-left"></i> Volver a lista</a>
 {% endblock %}

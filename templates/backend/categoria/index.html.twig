@@ -1,21 +1,23 @@
 {% extends 'backend/base.html.twig' %}
-{% block title %}Listado de categorías
+{% block title %}Categorías
 {% endblock %}
 
 {% block body %}
+
     <div class="card mt-4 mb-4">
         <div class="card-header">
-            <h2 class="display-6">Listado de Categorías</h2>
+            <h1 class="display-6">Listado de categorías</h1>
         </div>
         <div class="card-body">
-            <div class="table">
-                <table class="table-responsive table-striped">
+            <div class="table-responsive">
+                <table class="table">
                     <thead class="thead-dark">
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>acciones</th>
                     </tr>
+
                     </thead>
                     <tbody>
                     {% for categorium in categorias %}
@@ -39,20 +41,16 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3">no records found</td>
+                            <td colspan="3">No se ha encontrado datos</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer">
-                <a href="{{ path('app_categoria_new') }}" class="btn btn-dark text-capitalize text-white">Nueva
-                    Categoría</a>
-            </div>
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('app_categoria_new') }}" class="btn btn-dark text-capitalize text-white">Nueva
+                Categoría</a>
         </div>
     </div>
-
-
-
-
 {% endblock %}

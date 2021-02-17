@@ -1,36 +1,55 @@
 {% extends 'backend/base.html.twig' %}
 
-{% block title %}Listado de plataformas
+{% block title %}Plataformas
 {% endblock %}
 
 {% block body %}
-    <h1>Plataforma index</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for plataforma in plataformas %}
-            <tr>
-                <td>{{ plataforma.id }}</td>
-                <td>{{ plataforma.nombre }}</td>
-                <td>
-                    <a href="{{ path('app_plataforma_show', {'id': plataforma.id}) }}">show</a>
-                    <a href="{{ path('app_plataforma_edit', {'id': plataforma.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_plataforma_new') }}">Create new</a>
+    <div class="card mt-4 mb-4">
+        <div class="card-header">
+            <h1 class="display-6">Listado de plataformas</h1>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for plataforma in plataformas %}
+                        <tr>
+                            <td>{{ plataforma.id }}</td>
+                            <td>{{ plataforma.nombre }}</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm"
+                                   data-toggle="tooltip" data-placement="top" title="más información"
+                                   href="{{ path('app_plataforma_show', {'id': plataforma.id}) }}"
+                                   aria-label="moreInfo">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a class="btn btn-outline-warning btn-sm"
+                                   data-toggle="tooltip" data-placement="top" title="Editar"
+                                   href="{{ path('app_plataforma_edit', {'id': plataforma.id}) }}"
+                                   aria-label="Edit">
+                                    <i class="fas fa-pen-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">No se han encontrado datos</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('app_plataforma_new') }}" class="btn btn-dark text-capitalize text-white">Nueva Plataforma</a>
+        </div>
+    </div>
 {% endblock %}
