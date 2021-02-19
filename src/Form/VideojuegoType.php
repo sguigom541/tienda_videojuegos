@@ -33,7 +33,6 @@ class VideojuegoType extends AbstractType
             ->add('descripcion')
             ->add('imgPrincipal', FileType::class, [
                 'label' => 'Imagen (JPG, PNG)',
-
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
