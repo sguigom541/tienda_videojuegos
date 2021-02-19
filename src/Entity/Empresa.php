@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=EmpresaRepository::class)
  */
-class Empresa
+class Empresa implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -75,5 +75,10 @@ class Empresa
         $this->logo = $logo;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        // TODO: Implement jsonSerialize() method.
     }
 }

@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=VideojuegoRepository::class)
  */
-class Videojuego
+class Videojuego implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -223,5 +223,23 @@ class Videojuego
         $this->imagenes = $imagenes;
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'=>$this->getId(),
+            'nombre'=>$this->getNombre(),
+            'lanzamiento'=>$this->getLanzamiento(),
+            'fechaHoraEntrada'=>$this->getFechaHoraEntrada(),
+            'precio'=>$this->getPrecio(),
+            'descuento'=>$this->getDescuento(),
+            'stock'=>$this->getStock(),
+            'descripcion'=>$this->getDescripcion(),
+            'plataforma'=>$this->getPlataforma()->getNombre(),
+            'categoria'=>$this->getCategoria()->getNombre(),
+            'imgPrincipal'=>$this->getImgPrincipal(),
+            'imagenes'=>$this->getImagenes(),
+        ];
     }
 }

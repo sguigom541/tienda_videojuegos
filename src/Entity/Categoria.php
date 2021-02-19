@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CategoriaRepository::class)
  */
-class Categoria
+class Categoria implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -81,5 +81,13 @@ class Categoria
         }
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'=>$this->getId(),
+            'nombre'=>$this->getNombre(),
+        ];
     }
 }
