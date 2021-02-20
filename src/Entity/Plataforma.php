@@ -6,9 +6,11 @@ use App\Repository\PlataformaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @UniqueEntity(fields={"nombre"},message="El nombre de esta plataforma ya existe en BD")
  * @ORM\Entity(repositoryClass=PlataformaRepository::class)
  */
 class Plataforma implements \JsonSerializable
@@ -21,7 +23,7 @@ class Plataforma implements \JsonSerializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      * @Assert\NotBlank(message="El campo nombre no puede estar vacío")
      */
     private $nombre;
@@ -46,7 +48,7 @@ class Plataforma implements \JsonSerializable
         return $this->nombre;
     }
 
-    public function setNombre(string $nombre): self
+    public function setNombre(?string $nombre): self
     {
         $this->nombre = $nombre;
 

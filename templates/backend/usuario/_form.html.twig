@@ -1,5 +1,18 @@
 {{ form_start(form) }}
-
+{% if not form.vars.valid %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {# Loop through every form item #}
+        {% for child in form.children %}
+            {# Display the errors of the form item #}
+            {% for error in child.vars.errors %}
+                <span class="d-block m-2">{{error.message}}</span>
+            {% endfor %}
+        {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
 <div class="form-group row">
     {{ form_label(form.nombre,'Nombre', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
     <div class="col-sm-8">

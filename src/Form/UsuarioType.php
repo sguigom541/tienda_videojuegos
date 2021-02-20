@@ -15,9 +15,15 @@ class UsuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email',EmailType::class)
-            ->add('password',PasswordType::class)
-            ->add('nombre')
+            ->add('email',EmailType::class,[
+                'required'=>false,
+            ])
+            ->add('password',PasswordType::class,[
+                'required'   => false,
+            ])
+            ->add('nombre',null,[
+                'required' => false,
+            ])
             ->add('roles', ChoiceType::class, [
                 'required' => true,
                 'multiple' => true,
@@ -27,9 +33,15 @@ class UsuarioType extends AbstractType
                     'Administrador' => 'ROLE_ADMIN',
                 ]
             ])
-            ->add('ape1')
-            ->add('ape2')
-            ->add('direccion');
+            ->add('ape1',null,[
+                'required'   => false,
+            ])
+            ->add('ape2',null,[
+                'required'   => false,
+            ])
+            ->add('direccion',null,[
+                'required'   => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

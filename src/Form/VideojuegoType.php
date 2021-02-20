@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -19,18 +20,30 @@ class VideojuegoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
+            ->add('nombre',null,[
+                'required'=>false,
+            ])
             ->add('lanzamiento', DateType::class, [
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd'
+                'format' => 'yyyy-MM-dd',
+                'required'=>false,
             ])
             ->add('fechaHoraEntrada', DateTimeType::class, [
                 'widget' => 'single_text',
+                'required'=>false,
             ])
-            ->add('precio')
-            ->add('descuento')
-            ->add('stock')
-            ->add('descripcion')
+            ->add('precio', NumberType::class, [
+                'required'   => false,
+            ])
+            ->add('descuento', NumberType::class, [
+                'required'   => false,
+            ])
+            ->add('stock',null,[
+                'required'=>false,
+            ])
+            ->add('descripcion',null,[
+                'required'=>false,
+            ])
             ->add('imgPrincipal', FileType::class, [
                 'label' => 'Imagen (JPG, PNG)',
                 // unmapped means that this field is not associated to any entity property
@@ -64,7 +77,7 @@ class VideojuegoType extends AbstractType
             ->add('categoria', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Categoria::class,
-
+                'required'=>false,
                 // uses the User.username property as the visible option string
                 'choice_label' => 'nombre',
 
@@ -75,7 +88,7 @@ class VideojuegoType extends AbstractType
             ->add('plataforma', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Plataforma::class,
-
+                'required'=>false,
                 // uses the User.username property as the visible option string
                 'choice_label' => 'nombre',
 

@@ -6,10 +6,12 @@ use App\Repository\UsuarioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @UniqueEntity(fields={"email"},message="El campo email ya existe en la BD")
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
 class Usuario implements UserInterface
@@ -29,6 +31,7 @@ class Usuario implements UserInterface
     private $email;
 
     /**
+     * @Assert\NotBlank(message="Campo Roles no seleccionado")
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -68,6 +71,11 @@ class Usuario implements UserInterface
      * @Assert\NotBlank(message="El campo dirección no puede estar vacío")
      */
     private $direccion;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
 
     public function __construct()
     {
@@ -128,7 +136,7 @@ class Usuario implements UserInterface
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -190,7 +198,7 @@ class Usuario implements UserInterface
         return $this->nombre;
     }
 
-    public function setNombre(string $nombre): self
+    public function setNombre(?string $nombre): self
     {
         $this->nombre = $nombre;
 
@@ -202,7 +210,7 @@ class Usuario implements UserInterface
         return $this->ape1;
     }
 
-    public function setApe1(string $ape1): self
+    public function setApe1(?string $ape1): self
     {
         $this->ape1 = $ape1;
 
@@ -214,7 +222,7 @@ class Usuario implements UserInterface
         return $this->ape2;
     }
 
-    public function setApe2(string $ape2): self
+    public function setApe2(?string $ape2): self
     {
         $this->ape2 = $ape2;
 
@@ -226,9 +234,21 @@ class Usuario implements UserInterface
         return $this->direccion;
     }
 
-    public function setDireccion(string $direccion): self
+    public function setDireccion(?string $direccion): self
     {
         $this->direccion = $direccion;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

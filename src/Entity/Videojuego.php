@@ -31,6 +31,7 @@ class Videojuego implements \JsonSerializable
     private $lanzamiento;
 
     /**
+     * @Assert\NotBlank(message="El campo fecha Entrada no puede estar vacío")
      * @ORM\Column(type="datetime")
      */
     private $fechaHoraEntrada;
@@ -98,7 +99,7 @@ class Videojuego implements \JsonSerializable
         return $this->nombre;
     }
 
-    public function setNombre(string $nombre): self
+    public function setNombre(?string $nombre): self
     {
         $this->nombre = $nombre;
 
@@ -110,7 +111,7 @@ class Videojuego implements \JsonSerializable
         return $this->lanzamiento;
     }
 
-    public function setLanzamiento(\DateTimeInterface $lanzamiento): self
+    public function setLanzamiento(?\DateTimeInterface $lanzamiento): self
     {
         $this->lanzamiento = $lanzamiento;
 
@@ -122,7 +123,7 @@ class Videojuego implements \JsonSerializable
         return $this->fechaHoraEntrada;
     }
 
-    public function setFechaHoraEntrada(\DateTimeInterface $fechaHoraEntrada): self
+    public function setFechaHoraEntrada(?\DateTimeInterface $fechaHoraEntrada): self
     {
         $this->fechaHoraEntrada = $fechaHoraEntrada;
 
@@ -134,7 +135,7 @@ class Videojuego implements \JsonSerializable
         return $this->precio;
     }
 
-    public function setPrecio(float $precio): self
+    public function setPrecio(?float $precio): self
     {
         $this->precio = $precio;
 
@@ -158,7 +159,7 @@ class Videojuego implements \JsonSerializable
         return $this->stock;
     }
 
-    public function setStock(int $stock): self
+    public function setStock(?int $stock): self
     {
         $this->stock = $stock;
 
@@ -170,7 +171,7 @@ class Videojuego implements \JsonSerializable
         return $this->descripcion;
     }
 
-    public function setDescripcion(string $descripcion): self
+    public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
 
@@ -206,7 +207,7 @@ class Videojuego implements \JsonSerializable
         return $this->imgPrincipal;
     }
 
-    public function setImgPrincipal(string $imgPrincipal): self
+    public function setImgPrincipal(?string $imgPrincipal): self
     {
         $this->imgPrincipal = $imgPrincipal;
 
