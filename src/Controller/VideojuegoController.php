@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Videojuego;
 use App\Form\VideojuegoType;
 use App\Repository\VideojuegoRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -24,10 +25,14 @@ class VideojuegoController extends AbstractController
      * @param VideojuegoRepository $videojuegoRepository
      * @return Response
      */
-    public function index(VideojuegoRepository $videojuegoRepository): Response
+    public function index(Request $request,PaginatorInterface $paginator,VideojuegoRepository $videojuegoRepository): Response
     {
+        //Se paginan los resultados de la consulta
+        $paginacion=$paginator->paginate($videojuegoRepository->findAll(),$request->query->getInt('page', 1),
+            // Items per page
+            5);
         return $this->render('backend/videojuego/index.html.twig', [
-            'videojuegos' => $videojuegoRepository->findAll(),
+            'videojuegos' => $paginacion,
         ]);
     }
 
@@ -48,7 +53,7 @@ class VideojuegoController extends AbstractController
 
             if ($imagenPrincipal)
             {
-                $fecha = new Date();
+                //$fecha = new Date();
                 $fecha=date('Y-m-d');
                 try {
 
@@ -64,7 +69,7 @@ class VideojuegoController extends AbstractController
             //si existe el array
             if($imagenes)
             {
-                $fecha = new Date();
+                //$fecha = new Date();
                 $fecha=date('Y-m-d');
                 $arrayImagenes=array();
                 $url=$this->getParameter('videojuego_directory').'/'.$videojuego->getNombre().'/'.'imagenes'.'/';

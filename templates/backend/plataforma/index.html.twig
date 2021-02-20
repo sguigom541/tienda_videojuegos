@@ -47,6 +47,12 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row">
+                {{ knp_pagination_render(plataformas, null, {}, {
+                    'align': 'center',
+                    'rounded': true,
+                }) }}
+            </div>
         </div>
         <div class="card-footer">
             <a href="{{ path('app_plataforma_new') }}" class="btn btn-dark text-capitalize text-white">Nueva Plataforma</a>

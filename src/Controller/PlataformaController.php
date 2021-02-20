@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Plataforma;
 use App\Form\PlataformaType;
 use App\Repository\PlataformaRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,11 +20,17 @@ class PlataformaController extends AbstractController
 {
     /**
      * @Route("/", name="app_plataforma_index", methods={"GET"})
+     * @param PlataformaRepository $plataformaRepository
+     * @return Response
      */
-    public function index(PlataformaRepository $plataformaRepository): Response
+    public function index(Request $request,PaginatorInterface $paginator,PlataformaRepository $plataformaRepository): Response
     {
+        //Se paginan los resultados de la consulta
+        $paginacion=$paginator->paginate($plataformaRepository->findAll(),$request->query->getInt('page', 1),
+            // Items per page
+            5);
         return $this->render('backend/plataforma/index.html.twig', [
-            'plataformas' => $plataformaRepository->findAll(),
+            'plataformas' => $paginacion,
         ]);
     }
 
