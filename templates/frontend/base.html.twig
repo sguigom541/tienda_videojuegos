@@ -5,7 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Index</title>
+    <title>
+            {% block title %}
+                Videojuegos Jaén
+            {% endblock%}
+    </title>
     {% block stylesheets %}
         <!--Bootstrap CSS-->
         <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
@@ -24,7 +28,6 @@
 <body>
     <header class="header mb-5">
         {% include '/frontend/comunes/_navbarTop.html.twig' %}
-        {% include '/frontend/comunes/_navbarMedium.html.twig' %}
     </header>
 
 
