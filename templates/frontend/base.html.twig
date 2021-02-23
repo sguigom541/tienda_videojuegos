@@ -6,9 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
-            {% block title %}
-                Videojuegos Jaén
-            {% endblock%}
+        {% block title %}
+            Videojuegos Jaén
+        {% endblock %}
     </title>
     {% block stylesheets %}
         <!--Bootstrap CSS-->
@@ -26,16 +26,27 @@
 
 </head>
 <body>
-    <header class="header mb-5">
-        {% include '/frontend/comunes/_navbarTop.html.twig' %}
-    </header>
+<header class="header mb-5">
+    {% include '/frontend/comunes/_navbarTop.html.twig' %}
+    {% include '/frontend/comunes/_navbarMedium.html.twig' %}
+</header>
+
+<div id="all">
+    <div id="content">
+        {% block body %}
+            
+        {% endblock %}
+    </div>
+</div>
 
 
-    {% block javascripts %}
-        <script src="{{ asset('frontend/js/jquery/jquery-3.5.1.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/carousel/owl.carousel.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/carousel/carousel_thumbs/owl.carousel2.thumbs.js') }}"></script>
-    {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('frontend/js/jquery/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/carousel/carousel_thumbs/owl.carousel2.thumbs.js') }}"></script>
+    <script src="{{ asset('frontend/js/misJS/indexPage.js') }}"></script>
+    <script src="{{ asset('frontend/js/misJS/ajax.js') }}"></script>
+{% endblock %}
 </body>
 </html>

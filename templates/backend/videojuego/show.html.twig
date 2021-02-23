@@ -1,58 +1,85 @@
-<!DOCTYPE html>
+{% extends 'backend/base.html.twig' %}
 
-<title>Videojuego</title>
-
+{% block title %}Videojuego
+{% endblock %}
 {% block body %}
-    <h1>Videojuego</h1>
+    <div class="card mt-4 mb-4">
+        <div class="card-header">
+            <h1 class="display-6">Información sobre el videojuego</h1>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Id Videojuego:</b>
+                        {{ videojuego.id }}
+                    </li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Nombre:</b>
+                        {{ videojuego.nombre }}
+                    </li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Lanzamiento:</b>
+                        {{ videojuego.lanzamiento ? videojuego.lanzamiento|date('Y-m-d') : '' }}
+                    </li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Fecha-Hora entrada:</b>
+                        {{ videojuego.fechaHoraEntrada ? videojuego.fechaHoraEntrada|date('Y-m-d H:i:s') : '' }}
+                    </li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Precio:</b>
+                        {{ videojuego.precio }}
+                    </li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Descuento:</b>
+                        {{ videojuego.descuento }}
+                    </li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Stock:</b>
+                        {{ videojuego.stock }}
+                    </li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Descripción:</b>
+                        {{ videojuego.descripcion }}
+                    </li>
+                </ul>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ videojuego.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ videojuego.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Lanzamiento</th>
-                <td>{{ videojuego.lanzamiento ? videojuego.lanzamiento|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>FechaHoraEntrada</th>
-                <td>{{ videojuego.fechaHoraEntrada ? videojuego.fechaHoraEntrada|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Precio</th>
-                <td>{{ videojuego.precio }}</td>
-            </tr>
-            <tr>
-                <th>Descuento</th>
-                <td>{{ videojuego.descuento }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ videojuego.stock }}</td>
-            </tr>
-            <tr>
-                <th>Descripcion</th>
-                <td>{{ videojuego.descripcion }}</td>
-            </tr>
-            <tr>
-                <th>ImgPrincipal</th>
-                <td>{{ videojuego.imgPrincipal }}</td>
-            </tr>
-            <tr>
-                <th>Imagenes</th>
-                <td>{{ videojuego.imagenes ? videojuego.imagenes|join(', ') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('videojuego_index') }}">back to list</a>
+                <div class="row">
+                    <img src="{{ asset('uploads'~'/'~'videojuegos'~'/'~ videojuego.nombre ~'/'~'imagenPrincipal'~'/'~ videojuego.imgPrincipal)  | imagine_filter('videojuego_portada') }}"/>
+                </div>
 
-    <a href="{{ path('videojuego_edit', {'id': videojuego.id}) }}">edit</a>
 
-    {{ include('videojuego/_delete_form.html.twig') }}
+                <div class="row">
+                    {% for imagen in videojuego.imagenes %}
+                        <img src="{{ asset('uploads'~'/'~'videojuegos'~'/'~ videojuego.nombre ~'/'~'imagenes'~'/'~ imagen)  | imagine_filter('videojuego_fotos') }}"/>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <a href="{{ path('app_videojuego_index') }}" class="pl-2 text-info float-left mr-5">
+                <i class="fas fa-caret-square-left"></i> Volver a lista</a>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-secondary float-left mr-2"
+               href="{{ path('app_videojuego_edit', {'id': videojuego.id}) }}">
+                Editar
+            </a>
+            {{ include('backend/videojuego/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

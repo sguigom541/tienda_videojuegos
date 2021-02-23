@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-
-<title>Slider index</title>
-
+{% extends 'backend/base.html.twig' %}
+{% block title %}slider
+{% endblock %}
 {% block body %}
     <h1>Slider index</h1>
 
@@ -19,8 +18,8 @@
                 <td>{{ slider.id }}</td>
                 <td>{{ slider.urlFoto }}</td>
                 <td>
-                    <a href="{{ path('slider_show', {'id': slider.id}) }}">show</a>
-                    <a href="{{ path('slider_edit', {'id': slider.id}) }}">edit</a>
+                    <a href="{{ path('app_slider_show', {'id': slider.id}) }}">show</a>
+                    <a href="{{ path('app_slider_edit', {'id': slider.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

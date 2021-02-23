@@ -57,8 +57,9 @@ class VideojuegoController extends AbstractController
                 $fecha=date('Y-m-d');
                 try {
 
-                    $fotoFormateada = $fecha . '-' . trim($videojuego->getNombre(),"") . '-' . trim($videojuego->getPlataforma()->getNombre(),"") . '.' . $imagenPrincipal->guessExtension();
-                    $url=$this->getParameter('videojuego_directory').'/'.$videojuego->getNombre().'/'.'imagenPrincipal'.'/';
+                    //$fotoFormateada = $fecha . '-' . trim($videojuego->getNombre(),"") . '-' . trim($videojuego->getPlataforma()->getNombre(),"") . '.' . $imagenPrincipal->guessExtension();
+                    $fotoFormateada=$fecha.'-'.str_replace(' ','',$videojuego->getNombre()).'-'.str_replace(' ','',$videojuego->getPlataforma()->getNombre()).'.' . $imagenPrincipal->guessExtension();
+                    $url=$this->getParameter('videojuego_directory').'/'.str_replace(' ','',$videojuego->getNombre()).'/'.'imagenPrincipal'.'/';
                     $imagenPrincipal->move($url, $fotoFormateada);
 
                 } catch (FileException $e) {
@@ -75,9 +76,11 @@ class VideojuegoController extends AbstractController
                 $url=$this->getParameter('videojuego_directory').'/'.$videojuego->getNombre().'/'.'imagenes'.'/';
                 for ($i=0;$i<count($imagenes);$i++)
                 {
-                    $imagenFormateada=$i.'-'.$fecha . '-' . trim($videojuego->getNombre(),"") . '-' . trim($videojuego->getPlataforma()->getNombre(),"") . '.' . $imagenes[$i]->guessExtension();
+                    //$imagenFormateada=$i.'-'.$fecha . '-' . trim($videojuego->getNombre(),"") . '-' . trim($videojuego->getPlataforma()->getNombre(),"") . '.' . $imagenes[$i]->guessExtension();
+                    $imagenFormateada=$i.'-'.$fecha.'-'.str_replace(' ','',$videojuego->getNombre()).'-'.str_replace(' ','',$videojuego->getPlataforma()->getNombre()). '.' . $imagenes[$i]->guessExtension();
                     $imagenes[$i]->move($url,$imagenFormateada);
                     array_push($arrayImagenes,$imagenFormateada);
+
 
                 }
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CategoriaRepository;
 use App\Repository\PlataformaRepository;
+use App\Repository\SliderRepository;
 use App\Repository\VideojuegoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,6 +57,19 @@ class AjaxJsonController extends AbstractController
 
         $response->headers->set('Content-Type', 'application/json');
         $response->setContent(json_encode($videojuegos));
+        return $response;
+    }
+
+    /**
+     * @Route("/slider")
+     */
+    public function sliderPrincipal(SliderRepository $sliderRepository): Response
+    {
+        $slider=$sliderRepository->findAll();
+        $response=new Response();
+        
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setContent(json_encode($slider));
         return $response;
     }
 }

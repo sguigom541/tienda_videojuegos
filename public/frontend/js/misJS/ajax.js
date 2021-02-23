@@ -9,3 +9,7 @@ function menuPrincipal()
 {
     
 }
+
+function mainSlider(){
+    
+}

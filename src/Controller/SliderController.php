@@ -11,22 +11,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/slider")
+ * @Route("/admin/slider")
  */
 class SliderController extends AbstractController
 {
     /**
-     * @Route("/", name="slider_index", methods={"GET"})
+     * @Route("/", name="app_slider_index", methods={"GET"})
+     * @param SliderRepository $sliderRepository
+     * @return Response
      */
     public function index(SliderRepository $sliderRepository): Response
     {
-        return $this->render('slider/index.html.twig', [
+        return $this->render('backend/slider/index.html.twig', [
             'sliders' => $sliderRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="slider_new", methods={"GET","POST"})
+     * @Route("/new", name="app_slider_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -39,27 +43,32 @@ class SliderController extends AbstractController
             $entityManager->persist($slider);
             $entityManager->flush();
 
-            return $this->redirectToRoute('slider_index');
+            return $this->redirectToRoute('app_slider_index');
         }
 
-        return $this->render('slider/new.html.twig', [
+        return $this->render('backend/slider/new.html.twig', [
             'slider' => $slider,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="slider_show", methods={"GET"})
+     * @Route("/{id}", name="app_slider_show", methods={"GET"})
+     * @param Slider $slider
+     * @return Response
      */
     public function show(Slider $slider): Response
     {
-        return $this->render('slider/show.html.twig', [
+        return $this->render('backend/slider/show.html.twig', [
             'slider' => $slider,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="slider_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="app_slider_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Slider $slider
+     * @return Response
      */
     public function edit(Request $request, Slider $slider): Response
     {
@@ -69,17 +78,20 @@ class SliderController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('slider_index');
+            return $this->redirectToRoute('app_slider_index');
         }
 
-        return $this->render('slider/edit.html.twig', [
+        return $this->render('backend/slider/edit.html.twig', [
             'slider' => $slider,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="slider_delete", methods={"DELETE"})
+     * @Route("/{id}", name="app_slider_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Slider $slider
+     * @return Response
      */
     public function delete(Request $request, Slider $slider): Response
     {
@@ -89,6 +101,6 @@ class SliderController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('slider_index');
+        return $this->redirectToRoute('app_slider_index');
     }
 }

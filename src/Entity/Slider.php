@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=SliderRepository::class)
  */
-class Slider
+class Slider implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -37,5 +37,12 @@ class Slider
         $this->urlFoto = $urlFoto;
 
         return $this;
+    }
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'=>$this->getId(),
+            'url'=>$this->getUrlFoto(),
+        ];
     }
 }
