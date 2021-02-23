@@ -13,3 +13,7 @@ function menuPrincipal()
 function mainSlider(){
     
 }
+
+function iniciarSesion(){
+    
+}

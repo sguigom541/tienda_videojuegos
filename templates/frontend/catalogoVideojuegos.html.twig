@@ -1,0 +1,48 @@
+{% extends 'frontend/base.html.twig' %}
+{% block javascripts %}
+	{{parent()}}
+	<script>
+		$(document).ready(function () {
+catalogoVideojuegos();
+menuVideojuegos();
+});
+	</script>
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<!--Menus y filtros -->
+
+				<!--Filtro plataformas -->
+					<div class="card sidebar-menu mb-4" id="filtroPlataforma"> <div class="card-header">
+						<h3 class="h4 card-title">Plataformas</h3>
+						<a href="#" class="btn btn-sm btn-danger pull-right" id="limpiarFiltros">
+							<i class="fa fa-times-circle">Limpiar</i>
+						</a>
+					</div>
+					<div class="card-body">
+						<form>
+							<div class="form-group" id="filtrosBusqueda"></div>
+							<button type="submit" class="btn btn-default btn-sm btn-primary" id="filtroPlataforma">
+								<i class="fa fa-pencil"></i>Aplicar filtros</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!--Listado de videojuegos-->
+			<div class="col-lg-9">
+				<div class="box">
+					<h1>Videojuegos</h1>
+				</div>
+				<div class="box info-bar">
+				
+				</div>
+				<div class="row products">
+				
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

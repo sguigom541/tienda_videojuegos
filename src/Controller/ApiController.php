@@ -6,15 +6,23 @@ use App\Repository\CategoriaRepository;
 use App\Repository\PlataformaRepository;
 use App\Repository\SliderRepository;
 use App\Repository\VideojuegoRepository;
+use App\Security\EmailVerifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/json")
+ * @Route("/api")
  */
-class AjaxJsonController extends AbstractController
+class ApiController extends AbstractController
 {
+    private $emailVerifier;
+
+    public function __construct(EmailVerifier $emailVerifier)
+    {
+        $this->emailVerifier=$emailVerifier;
+    }
+
     /**
      * @Route("/categoria")
      * @param CategoriaRepository $categoriaRepository
