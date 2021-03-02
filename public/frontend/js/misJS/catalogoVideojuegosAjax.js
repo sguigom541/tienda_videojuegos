@@ -128,12 +128,8 @@ function verProducto(idProducto) {
 function productoElegido() {
     $('cuerpoVideojuegoElegido').empty();
     var objVideojuego = $(".typeVideojuego").data('videojuego')
-    //var array=objVideojuego.imagenes;
-    //console.log(array);
     var arrayFotos = $(".typeVideojuego").data('fotosVideojuego');
-    //console.log(arrayFotos);
     var urlFotos = $(".typeVideojuego").data('url');
-    //console.log(objVideojuego);
     var plantillaVideojuego = $('<div id="productMain" class="row">')
     $('.divVideojuego').load('/plantillas/plantilla_videojuego_elegido.html', function (data) 
     {
@@ -257,10 +253,11 @@ function productoElegido() {
 
         }
 
-        //Añadir a la cesta
-        $(".addCesta").click(function (e) {
-            e.preventDefault();
 
+    });
+        //Añadir a la cesta
+        $(".addCesta").click(function (ev) {
+            ev.preventDefault();
             let cantidadProducto = $(".cantidadCesta").val();
 
             var autenticado = $('.userInSesion').data('user');
@@ -270,7 +267,6 @@ function productoElegido() {
             }
             cCarrito();
         });
-    });
     });
 
 }

@@ -171,7 +171,7 @@ h1 {
 }
 
 .navbar .navbar-nav > .nav-item > .nav-link.active, .navbar .navbar-nav > .nav-item > .nav-link:hover, .navbar .navbar-nav > .nav-item > .nav-link:focus {
-  background: #4fbfa8;
+  background: #867875;
 }
 
 @media (max-width: 991.98px) {
@@ -237,7 +237,7 @@ h1 {
 }
 
 .navbar .menu-large ul .nav-item a:hover {
-  color: #4fbfa8 !important;
+  color: #867875 !important;
   text-decoration: none;
 }
 

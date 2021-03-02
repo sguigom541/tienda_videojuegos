@@ -10,7 +10,7 @@ $(document).ready(function () {
 
 function carritoPagina() {
     var autenticado = $('.userInSesion').data('user');
-    if(!autenticado){
+    if(autenticado){
         showCarritoBD();
     }
     
@@ -23,7 +23,7 @@ function cCarrito() {
     if(autenticado){
         $.ajax({
             method: "get",
-            url: "api/cCarrito",
+            url: "api/cuentaCarrito",
             success: function (response) {
                 if (response > 0) {
                     $(".cCarrito").text(response);
@@ -102,7 +102,7 @@ function deleteCarritoBD(idVideojuego, elemento) {
 
 function showCarritoBD()
 {
-    var plantilla = $('<tr>').load("plantilla/plantilla_td_carrito.html");
+    var plantilla = $('<tr>').load("plantillas/plantilla_td_carrito.html");
 
     $.ajax({
         type: "post",
@@ -117,12 +117,12 @@ function showCarritoBD()
                     let item = $(plantilla).clone();
                     $(item).find(".carritoNombreVideojuego").text(respuesta[i].nombre);
                     $(item).find(".carritoUnidadVideojuego").val(respuesta[i].cantidadElegida);
-                    $(item).find(".carritoPrecioProducto").text(respuesta[i].precio + " €");
+                    $(item).find(".carritoPrecioVideojuego").text(respuesta[i].precio + " €");
                     $(item).find(".carritoDescuentoProducto").text(respuesta[i].descuento + " %");
 
                     var img = $("<img>").attr({
-                        "src": respuesta[i].imgPrincipal,
-                        "alt": "Producto" + respuesta[i].id
+                        "src": respuesta[i].foto,
+                        "alt": "Videojuego" + respuesta[i].id
                     });
                     $(img).css({ "width": "70px", "height": "70px", "class": "d-block" });
                     $(item).find(".carritoNombreVideojuego").after(img);
@@ -185,18 +185,22 @@ function showCarritoBD()
 
                         // eliminar tabla del carrito
 
-                        $(item).find(".eliminaFilaVideojuego").click(function () {
-                            deleteCarritoBD(respuesta[i].id, $(this));
-    
-                        });
-                        $(".cuerpoTablaCarrito").append(item);
+
+
                     })
+                    $(item).find(".eliminaFilaVideojuego").click(function (ev) {
+                        ev.preventDefault();
+                        //console.log(ev);
+                        deleteCarritoBD(respuesta[i].id, $(this));
+
+                    });
+                    $(".cuerpoTablaCarrito").append(item);
                 }
                 cuentaFactura()
                 $(".btnPagar").attr({ "disabled": false });
 
                 $(".btnPagar").click(function () {
-                    pagar()
+                    pagar();
 
                 });
             }

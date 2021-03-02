@@ -1,14 +1,12 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div id="basket" class="col-12 col-xl-8">
-                <div class="box">
-                    <form method="post" action="#">
+            <div id="basket" class="col-lg-9">
+                <div class="box color-box">
                         <h1>Carrito</h1>
-                        <p class="text-muted">You currently have 3 item(s) in your cart.</p>
                         <div class="table-responsive">
                             <table class="table">
-                                <thead class="thead-ligh cabeceraTabla">
+                                <thead class="thead-light cabeceraTabla">
                                 <tr>
                                     <th>PRODUCTO</th>
                                     <th>PRECIO</th>
@@ -31,28 +29,33 @@
                         <!-- /.table-responsive-->
                         <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
                             <div class="left"><a href="#" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i> Continuar Comprando</a></div>
-                            <div class="right">
-                                <button class="btn btn-outline-secondary"><i class="fa fa-refresh"></i> Actualizar carrito</button>
-                            </div>
                         </div>
-                    </form>
                 </div>
-            </div>
 
-            <div class="col-12 col-xl-4">
-                <div class="cart-total mb-3">
-                    <h3>CARRITO TOTAL</h3>
-                    <span>En Videojuegos Jaén siempre contará con nuestra confianza</span>
-                    <hr>
-                    <p class="d-flex total-price">
-                        <span>Total</span>
-                        <span class="facturaTotal">0.00 €</span>
+            </div>
+            <div class="col-lg-3">
+                <div id="order-summary" class="box color-box">
+                    <div class="box-header color-box">
+                        <h3 class="mb-0">CARRITO TOTAL</h3>
+                    </div>
+                    <div class="cart-total mb-3 ">
+                        <h3>CARRITO TOTAL</h3>
+                        <span>En Videojuegos Jaén siempre contará con nuestra confianza</span>
+                        <hr>
+                        <p class="d-flex total-price">
+                            <span>Total</span>
+                            <span class="facturaTotal">0.00 €</span>
+                        </p>
+                    </div>
+                    <p>
+                        <button class="btn btn-primary btnPagar" disabled>Pagar</button>
                     </p>
                 </div>
-                <p>
-                    <button class="btn btn-primary btnPagar" disabled>Pagar</button>
-                </p>
+
+
             </div>
+
+
         </div>
     </div>
 {% endblock %}

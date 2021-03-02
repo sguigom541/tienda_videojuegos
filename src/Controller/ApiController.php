@@ -382,7 +382,7 @@ class ApiController extends AbstractController
      /**
      * @Route("/addCarrito", name="app_addcarrito_frontend")
      */
-    public function addCarrito(Request $request)
+    public function addCarrito(Request $request): Response
     {
         $usuario=$this->getUser();
         $carrito=$usuario->getCarrito();
@@ -430,7 +430,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/showCarrito", name="app_showCarrito_frontend")
      */
-    public function showCarrito()
+    public function showCarrito(): Response
     {
         $usuario = $this->getUser();
         $carrito = $usuario->getCarrito();
@@ -438,17 +438,21 @@ class ApiController extends AbstractController
         $arrayCarrito = [];
         $em = $this->getDoctrine()->getManager();
 
-        foreach ($carrito as $videojuego)
+        foreach ($carrito as $producto)
         {
-            $videojuego=$em->getRepository(Videojuego::class)->find($videojuego["idVideojuego"]);
+
+            $videojuego=$em->getRepository(Videojuego::class)->find($producto["idVideojuego"]);
+            $url='./uploads/videojuegos/'.$videojuego->getNombre().'/imagenPrincipal/';
             $arrayCarrito[]=[
                 "id" => $videojuego->getId(),
-                "nombre"=>$videojuego->getNombre(). " ". $videojuego->getPlataforma(),
-                "foto"=>$videojuego->getImgPrincipal(),
-                "cantidadElegida"=>$videojuego["cantidadElegida"],
+                "nombre"=>$videojuego->getNombre(). " ". $videojuego->getPlataforma()->getNombre(),
+                "foto"=>$url.$videojuego->getImgPrincipal(),
+                "cantidadElegida"=>$producto["cantidadElegida"],
+                "precio"=>$videojuego->getPrecio(),
                 "descuento" => $videojuego->getDescuento(),
                 "cantidad" => $videojuego->getStock(),
             ];
+
         }
 
         $response = new Response();
@@ -458,6 +462,11 @@ class ApiController extends AbstractController
 
     }
 
+    /**
+     * @Route("/updateCarrito", name="app_update_frontend")
+     * @param Request $request
+     * @return Response
+     */
     public function updateCarrito(Request $request) : Response
     {
         $usuario = $this->getUser();
@@ -493,7 +502,9 @@ class ApiController extends AbstractController
 
 
     /**
-     * @Route("/deleteCarrito", name="deleteCarrito_frontend")
+     * @Route("/deleteCarrito", name="app_deleteCarrito_frontend")
+     * @param Request $request
+     * @return Response
      */
 
     public function deleteCarrito(Request $request) : Response

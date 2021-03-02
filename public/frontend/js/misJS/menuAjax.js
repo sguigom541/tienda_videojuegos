@@ -4,6 +4,7 @@ $(document).ready(function () {
     cargaContacto();
     cargaMiCuenta();
     cargaRegistroLogin();
+    muestraCarrito();
 });
 
 function inicio() {
@@ -80,6 +81,22 @@ function cargaRegistroLogin(){
             success:function(response){
                 $("#content").append(response);
             }
+        })
+    })
+}
+
+function muestraCarrito(){
+    $(".verCarrito").click(function(){
+        $("#content").empty();
+
+        $.ajax({
+            method:"get",
+            url:"api/carrito",
+            success:function(response){
+                $("#content").append(response);
+                showCarritoBD();
+            }
+
         })
     })
 }

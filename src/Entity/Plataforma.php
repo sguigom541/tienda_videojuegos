@@ -92,4 +92,9 @@ class Plataforma implements \JsonSerializable
             'nombre'=>$this->getNombre(),
         ];
     }
+    public function __toString(): ?string
+    {
+        return $this->getNombre();
+    }
+
 }
