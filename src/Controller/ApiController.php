@@ -2,13 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\DetallePedido;
+use App\Entity\Pedido;
 use App\Entity\Usuario;
+use App\Entity\Videojuego;
+use DateTime;
 use App\Repository\CategoriaRepository;
 use App\Repository\PlataformaRepository;
 use App\Repository\SliderRepository;
+use App\Repository\UsuarioRepository;
 use App\Repository\VideojuegoRepository;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
+use Funciones;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,7 +105,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/videojuegos/plat/{plataforma}", name="app_filtro_videojuegos_plataforma")
      * @param VideojuegoRepository $videojuegoRepository
-     * @param $categoria
+     * @param $plataforma
      * @return Response
      */
     public function videojuegosPlataforma (VideojuegoRepository $videojuegoRepository,$plataforma):Response
@@ -113,13 +119,31 @@ class ApiController extends AbstractController
         return $response;
     }
 
+    /**
+     * @Route("/verVideojuego", name="app_VerVideojuego_frontend")
+     */
+    public function verVideojuego(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $videojuego=$em->getRepository(Videojuego::class)->find($request->get("id"));
+        $url='./uploads/videojuegos/'.$videojuego->getNombre().'/imagenes';
+        $fotosVideojuegos=scandir($url);
+        $arrayFotos=array();
 
-
-
-
+        foreach($fotosVideojuegos as $clave=>$valor)
+        {
+            array_push($arrayFotos,$url."/".$valor);
+        }
+        return $this->render('frontend/showProducto.html.twig', [
+            'videojuego' => $videojuego,
+            'fotosProducto' => $arrayFotos,
+        ]);
+    }
 
     /**
      * @Route("/slider")
+     * @param SliderRepository $sliderRepository
+     * @return Response
      */
     public function sliderPrincipal(SliderRepository $sliderRepository): Response
     {
@@ -201,7 +225,7 @@ class ApiController extends AbstractController
 
         try {
             $em = $this->getDoctrine()->getManager();
-            $usuario=$em->getRepository(Usuario::class)->findOneBy(['id'=>$request->get("id")]);
+            $usuario=$em->getRepository(Usuario::class)->findOneBy(['email'=>$request->get("email")]);
             $usuario->setNombre($request->get('nombre'));
             $usuario->setApe1($request->get('ape1'));
             $usuario->setApe2($request->get('ape2'));
@@ -219,6 +243,364 @@ class ApiController extends AbstractController
         $response = new Response();
         $response->headers->set("Content-Type", "application/json");
         $response->setContent(json_encode($correcto));
+        return $response;
+    }
+
+    /*************************************************************************
+     *
+     * API QUE CONTROLA  LA ADMINISTRACION DE LA CUENTA DE USUARIO LOGUEADO
+     *
+     ************************************************************************/
+
+    /**
+     * @Route("/datosPersonales",name="app_datospersonales_frontend")
+     * @param Request $request
+     * @param UsuarioRepository $usuarioRepository
+     * @return Response
+     */
+    public function misDatos(Request $request,UsuarioRepository $usuarioRepository): Response
+    {
+        $usuario="";
+
+        $usuario=$usuarioRepository->find($this->getUser()->getId());
+        $response = new Response();
+        /*Con esto digo que lo que re voy a pasar es un json, para luego hacer el parse lo hace solo*/
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode($usuario));
+
+        return $response;
+    }
+
+
+
+    /**
+     * @Route("/envioCorreo", name="app_envioCorreo_frontend")
+     */
+    public function enviarCorreo(UsuarioRepository $usuario)
+    {
+        $enviado=false;
+
+        $usuario= $usuario->findBy(["id"=>$this->getUser()->getId()]);
+
+        if($usuario[0] !=null)
+        {
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $usuario[0],
+                (new TemplatedEmail())
+                    ->from(new Address('videojuegosjaen@gmail.com', 'Videojuegos Jaén'))
+                    ->to($usuario[0]->getEmail())
+                    ->subject('Por favor confirma tu cuenta de Videojuegos Jaén')
+                    ->htmlTemplate('registration/confirmation_email.html.twig')
+            );
+            $enviado = true;
+        }
+
+        $response = new Response();
+        
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode($enviado));
+        return $response;
+    }
+
+
+
+
+
+    /*************************************************************************
+     * 
+     * API QUE CONTROLA EL MENU DE LA PAGINA WEB
+     * 
+     ************************************************************************/
+
+
+
+    /**
+     * @Route("/miCuenta", name="app_miCuenta_frontend")
+     */
+    public function miCuenta(): Response
+    {
+
+        return $this->render('frontend/micuenta.html.twig');
+    }
+
+
+    /**
+     * @Route("/inicio",name="app_inicio_frontend")
+     */
+    public function inicio(): Response
+    {
+        return $this->render('frontend/inicio.html.twig');
+    }
+
+    /**
+     * @Route("/carrito", name="app_verCarrito_frontend")
+     */
+    public function verCarrito(): Response
+    {
+        return $this->render('frontend/carrito.html.twig');
+    }
+
+
+
+
+    /**
+     * @Route("/contacto",name="app_contacto")
+     * @return Response
+     */
+    public function contacto() :Response
+    {
+        return $this->render('frontend/contacto.html.twig');
+    }
+    
+
+    /**
+     * @Route("/catalogo", name="app_catalogo_frontend")
+     */
+    public function cargaCatalogo(): Response
+    {
+        return $this->render('frontend/catalogoVideojuegos.html.twig');
+    }
+
+
+
+    /**
+     * @Route("/registrologin",name="app_registrologin_frontend")
+     */
+    public function formuRegistroLogin() :Response
+    {
+        return $this->render('frontend/registrocliente.html.twig');
+    }
+
+    /*************************************************************************
+     * 
+     * CARRITO DE LA PAGINA WEB
+     * 
+     ************************************************************************/
+
+
+     /**
+     * @Route("/addCarrito", name="app_addcarrito_frontend")
+     */
+    public function addCarrito(Request $request)
+    {
+        $usuario=$this->getUser();
+        $carrito=$usuario->getCarrito();
+
+        $encontrado = false;
+        $indice = 0;
+
+        //Miro si existe el producto y actualizo la cantidad
+
+        if (!empty($carrito)) {
+            for ($i = 0; $i < count($carrito); $i++) {
+                if ($carrito[$i]["idVideojuego"] == $request->get("idVideojuego")) {
+                    $indice = $i;
+                    $encontrado = true;
+                }
+            }
+        }
+
+        if ($encontrado) {
+            $carrito[$indice]["cantidadElegida"] = $carrito[$indice]["cantidadElegida"] + $request->get("cantidadElegida");
+        } else {
+            $carrito[] = [
+                "idVideojuego" => $request->get("idVideojuego"),
+                "cantidadElegida" => $request->get("cantidadElegida"),
+            ];
+        }
+
+        $funciona = true;
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $usuario->setCarrito($carrito);
+            $em->persist($usuario);
+            $em->flush();
+        } catch (\Throwable $th) {
+            
+            $funciona = false;
+        }
+
+        $response = new Response();
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode($funciona));
+        return $response;
+    }
+
+    /**
+     * @Route("/showCarrito", name="app_showCarrito_frontend")
+     */
+    public function showCarrito()
+    {
+        $usuario = $this->getUser();
+        $carrito = $usuario->getCarrito();
+
+        $arrayCarrito = [];
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($carrito as $videojuego)
+        {
+            $videojuego=$em->getRepository(Videojuego::class)->find($videojuego["idVideojuego"]);
+            $arrayCarrito[]=[
+                "id" => $videojuego->getId(),
+                "nombre"=>$videojuego->getNombre(). " ". $videojuego->getPlataforma(),
+                "foto"=>$videojuego->getImgPrincipal(),
+                "cantidadElegida"=>$videojuego["cantidadElegida"],
+                "descuento" => $videojuego->getDescuento(),
+                "cantidad" => $videojuego->getStock(),
+            ];
+        }
+
+        $response = new Response();
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode($arrayCarrito));
+        return $response;
+
+    }
+
+    public function updateCarrito(Request $request) : Response
+    {
+        $usuario = $this->getUser();
+        $carrito = $usuario->getCarrito();
+
+        //Miro si existe el producto para hacer un update de la cantidad
+        if (!empty($carrito)) {
+            for ($i = 0; $i < count($carrito); $i++) {
+                if ($carrito[$i]["idVideojuego"] == $request->get("idVideojuego")) {
+                    $carrito[$i]["cantidadElegida"] = $request->get("cantidadElegida");
+
+                    break;
+                }
+            }
+        }
+
+        $funciona = true;
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $usuario->setCarrito($carrito);
+            $em->persist($usuario);
+            $em->flush();
+        } catch (\Throwable $th) {
+            //echo $th;
+            $funciona = false;
+        }
+
+        $response = new Response();
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode($funciona));
+        return $response;
+    }
+
+
+    /**
+     * @Route("/deleteCarrito", name="deleteCarrito_frontend")
+     */
+
+    public function deleteCarrito(Request $request) : Response
+    {
+        $usuario = $this->getUser();
+        $carrito = $usuario->getCarrito();
+
+        //Miro si existe el producto para hacer un update de la cantidad
+        if (!empty($carrito)) {
+            for ($i = 0; $i < count($carrito); $i++) {
+                if ($carrito[$i]["idVideojuego"] == $request->get("idVideojuego")) {
+                    unset($carrito[$i]);
+                    $carrito = array_values($carrito);
+
+                    break;
+                }
+            }
+        }
+        $funciona = true;
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $usuario->setCarrito($carrito);
+            $em->persist($usuario);
+            $em->flush();
+        } catch (\Throwable $th) {
+            //echo $th;
+            $funciona = false;
+        }
+
+        $response = new Response();
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode($funciona));
+        return $response;
+    }
+
+    /**
+     * @Route("/pagar", name="pagar_frontend")
+     */
+    public function pagar()
+    {
+        $usuario = $this->getUser();
+        $carrito = $usuario->getCarrito();
+
+        $correcto = true;
+
+        try{
+            $pedido = new Pedido();
+            $hoy = new DateTime();
+            $funciones=new Funciones();
+
+            $em = $this->getDoctrine()->getManager();
+            $totalFactura = 0;
+
+            foreach($carrito as $videojuego)
+            {
+                $detallePedido= new DetallePedido();
+
+
+                $videojuego=$em->getRepository(Videojuego::class)->find($videojuego["idVideojuego"]);
+
+                $detallePedido->setCantidadCompra($videojuego["cantidadElegida"]);
+                $detallePedido->setVideojuego($videojuego);
+                $detallePedido->setPrecioVideojuego($videojuego->getPrecio());
+                $detallePedido->setDescuento($videojuego->getDescuento());
+
+                $totalFactura=$totalFactura+$funciones->calculoPrecio(
+                    $videojuego->getDescuento(),
+                    $videojuego->getPrecio(),
+                    $videojuego["cantidadElegida"]
+                );
+                $detallePedido->setPedido($pedido);
+                $em->persist($detallePedido);
+                $stock=$videojuego->getStock()-$videojuego["cantidadElegida"];
+                $videojuego->setStock($stock);
+                $em->persist($videojuego);
+
+            }
+            $pedido->setTotalCompra(number_format($totalFactura, 2, '.', ''));
+            $pedido->setFechaPedido($hoy);
+            $pedido->setUsuario($usuario);
+
+            $usuario->setCarrito([]);
+            $em->persist($usuario);
+            $em->flush();
+        }catch(\Throwable $th)
+        {
+            $correcto = false;
+        }
+
+        $response = new Response();
+        /*Con esto digo que lo que re voy a pasar es un json, para luego hacer el parse lo hace solo*/
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode($correcto));
+        return $response;
+    }
+
+    /**
+     * @Route("/cuentaCarrito", name="cCarrito_frontend")
+     */
+    public function cuentaCarrito(): Response
+    {
+        $usuario = $this->getUser()->getCarrito();
+
+        $response = new Response();
+        /*Con esto digo que lo que re voy a pasar es un json, para luego hacer el parse lo hace solo*/
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode(count($usuario)));
         return $response;
     }
 }

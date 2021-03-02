@@ -11,8 +11,38 @@ menuVideojuegos();
 
 {% block body %}
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-3">
+		<div class="row vertical-gap">
+			<div class="col-lg-4 default-sidebar-div">
+				<aside class="default-sidebar default-sidebar-div">
+					<div>
+						<div class="default-widget default-widget-destacado">
+							<h4 class="default-widget-titulo">
+								<span class="color-texto-sidebar">Plataformas</span>
+							</h4>
+							<div class="default-widget-contenido">
+								<ul class="default-widget-categorias">
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</aside>
+			</div>
+			<div class="col-lg-8" >
+				<div class="row vertical-gap listadoVideojuegos" data-url="{{ asset('uploads/videojuegos/') }}">
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	{# <div class="container">
+		<div class="row vertical-gap">
+			<div class="col-lg-4 default-sidebar">
 				<!--Menus y filtros -->
 
 				<!--Filtro plataformas -->
@@ -37,12 +67,12 @@ menuVideojuegos();
 					<h1>Videojuegos</h1>
 				</div>
 				<div class="box info-bar">
-				
+
 				</div>
-				<div class="row products">
-					
+				<div class="row products" id="listadoVideojuegos" data-url="{{ asset('uploads/videojuegos/') }}" >
+
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>#}
 {% endblock %}

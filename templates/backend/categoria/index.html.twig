@@ -13,7 +13,6 @@
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>acciones</th>
                     </tr>
@@ -22,7 +21,6 @@
                     <tbody>
                     {% for categorium in categorias %}
                         <tr>
-                            <td>{{ categorium.id }}</td>
                             <td>{{ categorium.nombre }}</td>
                             <td>
                                 <a class="btn btn-outline-info btn-sm"
@@ -41,7 +39,7 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3">No se ha encontrado datos</td>
+                            <td colspan="2">No se ha encontrado datos</td>
                         </tr>
                     {% endfor %}
                     </tbody>

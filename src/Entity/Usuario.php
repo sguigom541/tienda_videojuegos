@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"email"},message="El campo email ya existe en la BD")
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
-class Usuario implements UserInterface
+class Usuario implements UserInterface ,\JsonSerializable
 {
     /**
      * @ORM\Id
@@ -76,6 +76,12 @@ class Usuario implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $carrito = [];
+
 
     public function __construct()
     {
@@ -254,4 +260,28 @@ class Usuario implements UserInterface
     }
 
 
+    public function jsonSerialize( ) :array
+    {
+        return [
+            'id'=>$this->getId(),
+            'nombre'=>$this->getNombre(),
+            'ape1'=>$this->getApe1(),
+            'ape2'=>$this->getApe2(),
+            'email'=>$this->getEmail(),
+            'password'=>$this->getPassword(),
+            'direccion'=>$this->getDireccion(),
+        ];
+    }
+
+    public function getCarrito(): ?array
+    {
+        return $this->carrito;
+    }
+
+    public function setCarrito(?array $carrito): self
+    {
+        $this->carrito = $carrito;
+
+        return $this;
+    }
 }

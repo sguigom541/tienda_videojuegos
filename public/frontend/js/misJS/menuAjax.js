@@ -3,10 +3,21 @@ $(document).ready(function () {
     cargaCatalogo();
     cargaContacto();
     cargaMiCuenta();
+    cargaRegistroLogin();
 });
 
 function inicio() {
+    $(".inicio").click(function () {
+        $("#content").empty();
 
+        $.ajax({
+            method: "get",
+            url: "api/inicio",
+            success: function (response) {
+                $("#content").append(response);
+            }
+        });
+    });
 }
 
 function cargaCatalogo() {
@@ -23,7 +34,7 @@ function cargaCatalogo() {
             success: function (html) {
                 $("#content").append(html);
                 menuVideojuegos()
-                catalogoVideojuegos();
+                listadoVideojuegos();
 
             }
         });
@@ -31,8 +42,44 @@ function cargaCatalogo() {
     });
 }
 function cargaContacto(){
+    $(".contacto").click(function () {
+        $("#content").empty();
 
+        $.ajax({
+            method: "get",
+            url: "api/contacto",
+            success: function (response) {
+                $("#content").append(response);
+            }
+        });
+    });
 }
 function cargaMiCuenta(){
+    $(".miCuenta").click(function () {
+        $("#content").empty();
+        $.ajax({
+            method:"get",
+            url: "api/miCuenta",
+            success:function(response){
+                $("#content").append(response);
+                accionesCuenta();
+                verMisDatos();
+            }
+        })
 
+    });
+}
+
+function cargaRegistroLogin(){
+    $(".registro").click(function(){
+        $("#content").empty();
+
+        $.ajax({
+            method:"get",
+            url: "api/registrologin",
+            success:function(response){
+                $("#content").append(response);
+            }
+        })
+    })
 }

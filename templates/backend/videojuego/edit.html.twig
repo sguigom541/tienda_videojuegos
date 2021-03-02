@@ -1,13 +1,15 @@
-<!DOCTYPE html>
+{% extends 'backend/base.html.twig' %}
 
-<title>Edit Videojuego</title>
+{% block title %}Edición Videojuego{% endblock %}
 
 {% block body %}
-    <h1>Edit Videojuego</h1>
-
-    {{ include('videojuego/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('videojuego_index') }}">back to list</a>
-
-    {{ include('videojuego/_delete_form.html.twig') }}
+    <h1 class="display-6 mt-4">Edición de videojuego</h1>
+    <div class="card mb-4">
+        {{ include('backend/videojuego/_form.html.twig', {'button_label': 'Actualizar'}) }}
+        <div class="card-footer">
+            <a href="{{ path('app_videojuego_index') }}" class="text-primary d-block mb-2">
+                <i class="fas fa-caret-square-left"></i>Volver a lista</a>
+            {{ include('backend/videojuego/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

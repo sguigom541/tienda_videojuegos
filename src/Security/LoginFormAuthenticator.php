@@ -105,7 +105,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($this->urlGenerator->generate('app_index_backend'));
         }
         else{
-            return new RedirectResponse($this->urlGenerator->generate('app_miCuenta_frontend'));
+            return new RedirectResponse($this->urlGenerator->generate('app_index_frontend'));
         }
 
     }

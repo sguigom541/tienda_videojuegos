@@ -58,18 +58,6 @@
                     </li>
                 </ul>
 
-
-                <div class="row">
-                    <img src="{{ asset('uploads'~'/'~'videojuegos'~'/'~ videojuego.nombre ~'/'~'imagenPrincipal'~'/'~ videojuego.imgPrincipal)  | imagine_filter('videojuego_portada') }}"/>
-                </div>
-
-
-                <div class="row">
-                    {% for imagen in videojuego.imagenes %}
-                        <img src="{{ asset('uploads'~'/'~'videojuegos'~'/'~ videojuego.nombre ~'/'~'imagenes'~'/'~ imagen)  | imagine_filter('videojuego_fotos') }}"/>
-                    {% endfor %}
-                </div>
-
             </div>
             <a href="{{ path('app_videojuego_index') }}" class="pl-2 text-info float-left mr-5">
                 <i class="fas fa-caret-square-left"></i> Volver a lista</a>

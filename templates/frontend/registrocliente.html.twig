@@ -1,57 +1,62 @@
-{% extends 'frontend/base.html.twig' %}
-
 {% block body %}
-    <div class="col-lg-6">
-        <div class="box">
-            <h1>Nueva Cuenta</h1>
-            <p class="lead">¿No estás registrado todavía?</p>
-            <p>Si te registras con nosotros encontrarás un sinfín de videojuegos de diversas categorías adecuados para
-                todos los públicos,¡no te tomará menos de un minuto!</p>
-            <p class="text-muted">Si tienes alguna pregunta procuraremos responderla lo antes posible <a
-                        href="contact.html">contáctanos</a></p>
-            <hr>
-            <form action="#" method="post">
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre">
-                    <label for="ape1">Apellido 1</label>
-                    <input type="text" name="ape1" id="ape1">
-                    <label for="ape2">Apellido 2</label>
-                    <input type="text" name="ape2" id="ape2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box">
+                    <h1>Nueva Cuenta</h1>
+                    <p class="lead">¿No estás registrado todavía?</p>
+                    <p>Si te registras con nosotros encontrarás un sinfín de videojuegos de diversas categorías adecuados para
+                        todos los públicos,¡no te tomará menos de un minuto!</p>
+                    <p class="text-muted">Si tienes alguna pregunta procuraremos responderla lo antes posible <a
+                                href="contact.html">contáctanos</a></p>
+                    <hr>
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" name="nombre" id="nombre">
+                            <label for="ape1">Apellido 1</label>
+                            <input type="text" name="ape1" id="ape1">
+                            <label for="ape2">Apellido 2</label>
+                            <input type="text" name="ape2" id="ape2">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email">
+                            <label for="password">Contraseña</label>
+                            <input type="password" name="password" id="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" name="direccion" id="direccion">
+                        </div>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-user-md"></i>Regístrese</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email">
-                    <label for="password">Contraseña</label>
-                    <input type="password" name="password" id="password">
+            </div>
+            <div class="col-lg-6">
+                <div class="box">
+                    <h1>Login</h1>
+                    <p class="lead">¿Ya está registrado?</p>
+                    <p class="text-muted"> Inicie sesión y entrará en un lugar inólvidable</p>
+                    <hr>
+                    <form action="#" method="post">
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="text" name="password" id="password">
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> logueate</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input type="text" name="direccion" id="direccion">
-                </div>
-                <button type="submit" class="btn btn-success"><i class="fa fa-user-md"></i>Regístrese</button>
-            </form>
+            </div>
         </div>
     </div>
-    <div class="col-lg-6">
-        <div class="box">
-            <h1>Login</h1>
-            <p class="lead">¿Ya está registrado?</p>
-            <p class="text-muted"> Inicie sesión y entrará en un lugar inólvidable</p>
-            <hr>
-            <form action="#" method="post">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="text" name="password" id="password">
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> logueate</button>
-                </div>
-            </form>
-        </div>
-    </div>
+
 {% endblock %}

@@ -14,7 +14,6 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Id</th>
                             <th>Nombre</th>
                             <th>Acciones</th>
                         </tr>
@@ -22,7 +21,6 @@
                     <tbody>
                     {% for plataforma in plataformas %}
                         <tr>
-                            <td>{{ plataforma.id }}</td>
                             <td>{{ plataforma.nombre }}</td>
                             <td>
                                 <a class="btn btn-outline-info btn-sm"
@@ -41,7 +39,7 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3">No se han encontrado datos</td>
+                            <td colspan="2">No se han encontrado datos</td>
                         </tr>
                     {% endfor %}
                     </tbody>

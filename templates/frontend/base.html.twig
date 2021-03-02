@@ -14,7 +14,7 @@
         <!--Bootstrap CSS-->
         <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
         <!--Font Awesome CSS-->
-        <link rel="stylesheet" href="{{ asset('frontend/css/fontawesome.min.css') }}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <!-- carousel-->
         <link rel="stylesheet" href="{{ asset('frontend/css/carousel/owl.carousel.css') }}">
         <link rel="stylesheet" href="{{ asset('frontend/css/carousel/owl.theme.default.css') }}">
@@ -30,7 +30,9 @@
     {% include '/frontend/comunes/_navbarTop.html.twig' %}
     {% include '/frontend/comunes/_navbarMedium.html.twig' %}
 </header>
-
+{% if app.user != null %}
+        <div class="userInSesion" data-user="{{app.user.id}}"></div>
+    {% endif %}
 <div id="all">
     <div id="content">
         {% block body %}
@@ -38,8 +40,10 @@
         {% endblock %}
     </div>
 </div>
-
-
+    
+{% include '/frontend/comunes/_footer.html.twig' %}
+<img class="fondo-pagina-top" src="{{ asset('img/fondo/bg-top.png') }}" alt>
+<img class="fondo-pagina-bottom" src="{{ asset('img/fondo/bg-bottom.png') }}" alt>
 {% block javascripts %}
     <script src="{{ asset('frontend/js/jquery/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
@@ -48,9 +52,10 @@
 
     <!--#####Mis librerias####-->
     <script src="{{ asset('frontend/js/misJS/indexPage.js') }}"></script>
-    <script src="{{ asset('frontend/js/misJS/ajax.js') }}"></script>
-    <script src="{{ asset('frontend/js/misJS/catalogoVideojuegosAjax.js')}}"></script>
     <script src="{{asset('frontend/js/misJS/menuAJAX.js')}}"></script>
+    <script src="{{ asset('frontend/js/misJS/catalogoVideojuegosAjax.js')}}"></script>
+    <script src="{{ asset('frontend/js/misJS/micuentaAjax.js')}}"></script>
+    <script src="{{ asset('frontend/js/misJS/carritoAjax.js')}}"></script>
 {% endblock %}
 </body>
 </html>

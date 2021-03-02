@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -47,7 +46,8 @@ class VideojuegoController extends AbstractController
         $form = $this->createForm(VideojuegoType::class, $videojuego);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $nombre=str_replace(' ','',$form->get('nombre')->getData());
+            $videojuego->setNombre($nombre);
             $imagenPrincipal = $form->get('imgPrincipal')->getData();
             $imagenes=$form->get('imagenes')->getData();
 
@@ -59,7 +59,7 @@ class VideojuegoController extends AbstractController
 
                     //$fotoFormateada = $fecha . '-' . trim($videojuego->getNombre(),"") . '-' . trim($videojuego->getPlataforma()->getNombre(),"") . '.' . $imagenPrincipal->guessExtension();
                     $fotoFormateada=$fecha.'-'.str_replace(' ','',$videojuego->getNombre()).'-'.str_replace(' ','',$videojuego->getPlataforma()->getNombre()).'.' . $imagenPrincipal->guessExtension();
-                    $url=$this->getParameter('videojuego_directory').'/'.str_replace(' ','',$videojuego->getNombre()).'/'.'imagenPrincipal'.'/';
+                    $url=$this->getParameter('videojuego_directory').'/'.strtoupper(str_replace(' ','',$videojuego->getNombre())).'/'.'imagenPrincipal'.'/';
                     $imagenPrincipal->move($url, $fotoFormateada);
 
                 } catch (FileException $e) {
@@ -73,7 +73,7 @@ class VideojuegoController extends AbstractController
                 //$fecha = new Date();
                 $fecha=date('Y-m-d');
                 $arrayImagenes=array();
-                $url=$this->getParameter('videojuego_directory').'/'.$videojuego->getNombre().'/'.'imagenes'.'/';
+                $url=$this->getParameter('videojuego_directory').'/'.str_replace(' ','',$videojuego->getNombre()).'/'.'imagenes'.'/';
                 for ($i=0;$i<count($imagenes);$i++)
                 {
                     //$imagenFormateada=$i.'-'.$fecha . '-' . trim($videojuego->getNombre(),"") . '-' . trim($videojuego->getPlataforma()->getNombre(),"") . '.' . $imagenes[$i]->guessExtension();
@@ -125,6 +125,9 @@ class VideojuegoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($request->get('imagenes')==""){
+                $videojuego->setImagenes($videojuego->getImagenes());
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('app_videojuego_index');
@@ -149,4 +152,6 @@ class VideojuegoController extends AbstractController
 
         return $this->redirectToRoute('app_videojuego_index');
     }
+
+
 }

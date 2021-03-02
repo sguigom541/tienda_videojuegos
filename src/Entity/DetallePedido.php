@@ -44,6 +44,11 @@ class DetallePedido
      */
     private $videojuego;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $descuento;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +110,18 @@ class DetallePedido
     public function setVideojuego(?Videojuego $videojuego): self
     {
         $this->videojuego = $videojuego;
+
+        return $this;
+    }
+
+    public function getDescuento(): ?float
+    {
+        return $this->descuento;
+    }
+
+    public function setDescuento(float $descuento): self
+    {
+        $this->descuento = $descuento;
 
         return $this;
     }

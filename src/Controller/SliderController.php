@@ -6,6 +6,7 @@ use App\Entity\Slider;
 use App\Form\SliderType;
 use App\Repository\SliderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +40,27 @@ class SliderController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imagenPrincipal = $form->get('urlFoto')->getData();
+
+            if($imagenPrincipal)
+            {
+                $fecha=date('Y-m-d');
+
+                try{
+
+                    $fotoFormateada=$fecha.'-slider-'.'.'.$imagenPrincipal->guessExtension();
+                    $url=$this->getParameter('slider_directory').'/';
+                    $imagenPrincipal->move($url, $fotoFormateada);
+
+                }catch(FileException $e){
+
+                }
+                $slider->setUrlFoto($fotoFormateada);
+            }
+
+
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($slider);
             $entityManager->flush();
