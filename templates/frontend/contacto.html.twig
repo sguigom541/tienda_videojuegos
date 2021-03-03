@@ -1,6 +1,14 @@
 {% block body %}
-    <div class="col-lg-12">
-        <div id="contact" class="box">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center element-animacion">
+                <p class="lead">¿Tienes alguna curiosidad sobre algún producto?</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="col-lg-12">
+        <div id="contact" class="box color-box">
             <h1>Contacto</h1>
             <p class="lead">¿Tienes alguna curiosidad sobre algún producto?</p>
             <p>¿Póngase en contacto con nosotros</p>
@@ -62,11 +70,50 @@
                         </div>
                     </div>
                     <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i> Mandar mensaje</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"
+                                                                         aria-hidden="true"></i> Mandar mensaje
+                        </button>
                     </div>
                 </div>
                 <!-- /.row-->
             </form>
         </div>
+
+    </section>
+
+    <!-- Video Begin -->
+    <div class="container">
+        <div class="row mt-4">
+
+            <div class="col-lg-12">
+                <video src="{{ asset('./img/video/PS5_Trailer.mp4') }}" controls></video>
+            </div>
+            <div class="col-lg-12">
+                <p class="h3">¿Qué te pareció el trailer?</p>
+                <p class="text-justify">499 euros y 399 euros. Esas serán las etiquetas que acompañarán a los dos
+                    modelos de la consola que llegarán a las tiendas el próximo 19 de noviembre, así que tienes poco más
+                    de un mes para ahorrar lo suficiente para hacerte con uno de estos modelos. ¿Elegirás la opción sin
+                    disco o prefieres la clásica versión con lector Blu-ray?
+                    La consola se podrá reservar en los próximos días en los distribuidores autorizados, adelantando así
+                    a la fecha que propuso Microsoft como día de reserva de sus consolas. De esta manera, el que quiera
+                    hacerse con una consola de nueva generación podrá hacerlo inmediatamente con la opción de Sony,
+                    mientras que con la opción de Microsoft habrá que seguir esperando. ¿Perderán algunas unidades en
+                    Redmond por este adelantamiento por la derecha de Sony?</p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12 col-lg-6">
+                <p class="h3">Es interesante,¿verdad?</p>
+                <p class="text-justify">El cerebro de la PS5 será un chipset fabricado por AMD basado en una CPU Zen 2
+                    de 8 núcleos a 3,5 GHz (frecuencia variable) y una GPU RDNA 2 con 36 unidades de computación a 2,23
+                    GHz (frecuencia variable) con los que ofrecer un total de 10,28 teraflops. Se trata de una
+                    plataforma similar a la que podemos encontrar en Xbox Series X, aunque con ciertas diferencias.</p>
+            </div>
+            <div class="col-12 col-lg-6">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/_NX8F9FBvg0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
     </div>
+    <!-- Video End -->
 {% endblock %}

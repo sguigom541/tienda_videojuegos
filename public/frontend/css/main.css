@@ -700,3 +700,38 @@ CLASE PARA EL FOOTER
 .cart-total hr {
     background: rgba(255, 255, 255, 0.1);
 }
+
+/*Animate de la pagina de contacto*/
+.element-animacion {
+    height: 250px;
+    width:250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #555555;
+    animation-name: pulse;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+        border-radius: 100%;
+    }
+    70%{
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
